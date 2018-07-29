@@ -1,6 +1,6 @@
 #include "gearvr.h"
 
-const uint16_t opt_mtu = 62; // NOTE 59 bytes of the actual packet data & 3 bytes of GATT header.
+const uint16_t opt_mtu = 63; // NOTE 60 bytes of the actual packet data & 3 bytes of GATT header.
 
 static void exchange_mtu_cb(guint8 status, const guint8 *pdu, guint16 plen, gpointer user_data) {
   gattlib_context_t* conn_context = (gattlib_context_t*) user_data;
@@ -92,7 +92,7 @@ int main(int argc, char *argv[]) {
   }
 
   printf("Reading device status.\n");
-  ret = gattlib_read_char_by_uuid(connection, &gearvr_cmd_uuid, buffer, &len);
+  ret = gattlib_read_char_by_uuid(connection, &gearvr_updates_uuid, buffer, &len);
   if (ret) {
     fprintf(stderr, "Failed to retrieve device.\n");
     return 1;
